@@ -15,7 +15,7 @@ public class TerrainGen : MonoBehaviour {
         var noiseProvider = new NoiseProvider(cuts, resolution);
         var terrain = new TerrainChunk(settings, noiseProvider, 0, 0);
         terrain.CreateTerrain();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

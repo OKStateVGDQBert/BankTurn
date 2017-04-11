@@ -12,6 +12,7 @@ public class NoiseProvider {
         points = new Vector2[((int)(Mathf.Pow(2, splits-1))) + 1];
         size = max;
         findPoints(splits);
+        splinePoints();
     }
 
     public float GetValue(int x, int z)
@@ -52,7 +53,8 @@ public class NoiseProvider {
         matB[1, 0] = nearest2.y;
         matB[2, 0] = nearest3.y;
         Matrix4x4 solved = matA.inverse * matB;
-        if (Mathf.Abs(z - (solved[0, 0] + solved[1, 0] * x + solved[2, 0] * x * x)) < 5) return 0.1f;
+        float targetZ = solved[0, 0] + solved[1, 0] * x + solved[2, 0] * x * x;
+        if (Mathf.Abs(z - targetZ) > 5) return 0.1f;
         else return 0.05f;
     }
 
@@ -100,5 +102,32 @@ public class NoiseProvider {
             tempPoints[i + (tempPoints.Length / 2)] = temp[i];
         }
         return tempPoints;
+    }
+    
+    public void splinePoints()
+    {
+        MatrixNxN matrix = new MatrixNxN(3*(points.Length-1));
+
+        for (int i = 0; i < points.Length-1; i++)
+        {
+            matrix.values[i * 2, i * 3] = points[i].x * points[i].x;
+            matrix.values[i * 2, i * 3 + 1] = points[i].x;
+            matrix.values[i * 2, i * 3 + 2] = 1;
+            matrix.values[i * 2 + 1, i * 3] = points[i+1].x * points[i+1].x;
+            matrix.values[i * 2 + 1, i * 3 + 1] = points[i+1].x;
+            matrix.values[i * 2 + 1, i * 3 + 2] = 1;
+        }
+
+        for (int i = 0; i < points.Length-2; i++)
+        {
+            matrix.values[((points.Length - 1) * 2) + i, i * 3] = 2 * points[i + 1].x;
+            matrix.values[((points.Length - 1) * 2) + i, i * 3 + 1] = 1;
+            matrix.values[((points.Length - 1) * 2) + i, (i + 1) * 3] = 2 * points[i + 2].x;
+            matrix.values[((points.Length - 1) * 2) + i, (i + 1) * 3 + 1] = 1;
+        }
+
+        matrix.values[3 * (points.Length - 1) - 1, 0] = 1;
+
+        Debug.Log(matrix);
     }
 }
