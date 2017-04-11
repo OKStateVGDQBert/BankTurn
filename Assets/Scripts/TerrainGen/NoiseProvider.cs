@@ -28,8 +28,12 @@ public class NoiseProvider {
 			i++;
         }
 		float targetZ = (float) (solution [(i * 3) + 2, 0] + solution [(i * 3) + 1, 0] * x + solution [i * 3, 0] * x * x);
-        if (Mathf.Abs(z - targetZ) > 5) return 0.1f;
-        else return 0.05f;
+		float targetZDeriv = (float)(solution [(i * 3) + 1, 0] + 2 * solution [i * 3, 0] * x);
+		if (Mathf.Abs (z - targetZ) < 15 + Mathf.Abs (5 * targetZDeriv)) {
+			return 0.05f;
+		} else
+			//return 0.05f + Mathf.Pow(Mathf.Abs (z - targetZ)*0.01f,2);
+		return 0.1f;
     }
 
     private void findPoints( int splits)
@@ -37,10 +41,10 @@ public class NoiseProvider {
         float x = 0;
         float y = 0;
         x = Random.value * 10f;
-        y = Random.value * size;
+        y = size/2 + Random.value * size/4;
         points[0] = new Vector2((int)x, (int)y);
         x = size - (Random.value * 10f);
-        y = Random.value * size;
+		y = size/2 + Random.value * size/4;
         points[points.Length-1] = new Vector2((int)x, (int)y);
         Vector2[] temp = points;
         points = recursivelyFindPoints(splits, temp);
@@ -54,7 +58,7 @@ public class NoiseProvider {
         float initx = tempPoints[0].x;
         float endx = tempPoints[tempPoints.Length - 1].x;
         x = ((initx+endx)/2f) + 5f-(Random.value * 10f);
-        y = Random.value * size;
+        y = size/2 + Random.value * size/4;
         tempPoints[tempPoints.Length / 2] = new Vector2((int)x, (int)y);
         Vector2[] temp = new Vector2[(tempPoints.Length / 2) + 1];
         for (int i = 0; i < (tempPoints.Length / 2) + 1; i++)
