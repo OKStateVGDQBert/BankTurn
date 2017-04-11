@@ -6,6 +6,7 @@ public class NoiseProvider {
 
     private Vector2[] points;
     private int size;
+	private Matrix solution;
 
     public NoiseProvider(int splits, int max)
     {
@@ -17,43 +18,16 @@ public class NoiseProvider {
 
     public float GetValue(int x, int z)
     {
-        Vector2 nearest1 = points[0];
-        Vector2 nearest2 = points[1];
-        Vector2 nearest3 = points[2];
-        int i = 3;
-        bool found = false;
-        while (!found)
+		int i = 0;
+		if (x < points [0].x)
+			return 0.1f;
+		while (x > points[i + 1].x)
         {
-            if (i >= points.Length)
-            {
-                found = true;
-                break;
-            }
-            if (Mathf.Abs(x - nearest1.x) > Mathf.Abs(x - points[i].x))
-            {
-                nearest1 = nearest2;
-                nearest2 = nearest3;
-                nearest3 = points[i];
-                i++;
-            }
-            else found = true;
+			if (i == points.Length - 2)
+				return 0.1f;
+			i++;
         }
-        Matrix4x4 matA = Matrix4x4.identity;
-        matA[0, 0] = 1;
-        matA[1, 0] = 1;
-        matA[2, 0] = 1;
-        matA[0, 1] = nearest1.x;
-        matA[1, 1] = nearest2.x;
-        matA[2, 1] = nearest3.x;
-        matA[0, 2] = nearest1.x * nearest1.x;
-        matA[1, 2] = nearest2.x * nearest2.x;
-        matA[2, 2] = nearest3.x * nearest3.x;
-        Matrix4x4 matB = Matrix4x4.zero;
-        matB[0, 0] = nearest1.y;
-        matB[1, 0] = nearest2.y;
-        matB[2, 0] = nearest3.y;
-        Matrix4x4 solved = matA.inverse * matB;
-        float targetZ = solved[0, 0] + solved[1, 0] * x + solved[2, 0] * x * x;
+		float targetZ = (float) (solution [(i * 3) + 2, 0] + solution [(i * 3) + 1, 0] * x + solution [i * 3, 0] * x * x);
         if (Mathf.Abs(z - targetZ) > 5) return 0.1f;
         else return 0.05f;
     }
@@ -106,28 +80,36 @@ public class NoiseProvider {
     
     public void splinePoints()
     {
-        MatrixNxN matrix = new MatrixNxN(3*(points.Length-1));
+		Matrix matrix = new Matrix (3 * (points.Length - 1), 3 * (points.Length - 1));
+		Matrix right = Matrix.ZeroMatrix(3 * (points.Length - 1), 1);
 
         for (int i = 0; i < points.Length-1; i++)
         {
-            matrix.values[i * 2, i * 3] = points[i].x * points[i].x;
-            matrix.values[i * 2, i * 3 + 1] = points[i].x;
-            matrix.values[i * 2, i * 3 + 2] = 1;
-            matrix.values[i * 2 + 1, i * 3] = points[i+1].x * points[i+1].x;
-            matrix.values[i * 2 + 1, i * 3 + 1] = points[i+1].x;
-            matrix.values[i * 2 + 1, i * 3 + 2] = 1;
+            matrix[i * 2, i * 3] = points[i].x * points[i].x;
+            matrix[i * 2, i * 3 + 1] = points[i].x;
+            matrix[i * 2, i * 3 + 2] = 1;
+			right [i * 2, 0] = points [i].y;
+            matrix[i * 2 + 1, i * 3] = points[i+1].x * points[i+1].x;
+            matrix[i * 2 + 1, i * 3 + 1] = points[i+1].x;
+			matrix[i * 2 + 1, i * 3 + 2] = 1;
+			right [i * 2 + 1, 0] = points [i + 1].y;
         }
 
         for (int i = 0; i < points.Length-2; i++)
         {
-            matrix.values[((points.Length - 1) * 2) + i, i * 3] = 2 * points[i + 1].x;
-            matrix.values[((points.Length - 1) * 2) + i, i * 3 + 1] = 1;
-            matrix.values[((points.Length - 1) * 2) + i, (i + 1) * 3] = 2 * points[i + 2].x;
-            matrix.values[((points.Length - 1) * 2) + i, (i + 1) * 3 + 1] = 1;
+            matrix[((points.Length - 1) * 2) + i, i * 3] = 2 * points[i + 1].x;
+            matrix[((points.Length - 1) * 2) + i, i * 3 + 1] = 1;
+            matrix[((points.Length - 1) * 2) + i, (i + 1) * 3] = -2 * points[i + 1].x;
+            matrix[((points.Length - 1) * 2) + i, (i + 1) * 3 + 1] = -1;
         }
 
-        matrix.values[3 * (points.Length - 1) - 1, 0] = 1;
+        matrix[3 * (points.Length - 1) - 1, 0] = 1;
 
-        Debug.Log(matrix);
+		//solution = matrix.SolveWith (right);
+		solution = matrix.Invert() * right;
+
+		Debug.Log(matrix);
+		Debug.Log(right);
+		Debug.Log(solution);
     }
 }
