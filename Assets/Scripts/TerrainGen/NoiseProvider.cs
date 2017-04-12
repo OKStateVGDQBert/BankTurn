@@ -16,6 +16,34 @@ public class NoiseProvider {
         splinePoints();
     }
 
+    public int GetValue(int x)
+    {
+        int i = 0;
+        if (x < points[0].x)
+            return -1;
+        while (x > points[i + 1].x)
+        {
+            if (i == points.Length - 2)
+                return -1;
+            i++;
+        }
+        return (int)(solution[(i * 3) + 2, 0] + solution[(i * 3) + 1, 0] * x + solution[i * 3, 0] * x * x);
+    }
+
+    public float GetDerivative(int x)
+    {
+        int i = 0;
+        if (x < points[0].x)
+            return -1;
+        while (x > points[i + 1].x)
+        {
+            if (i == points.Length - 2)
+                return -1;
+            i++;
+        }
+        return (float)(solution[(i * 3) + 1, 0] + 2 * solution[i * 3, 0] * x);
+    }
+
     public float GetValue(int x, int z)
     {
 		int i = 0;
@@ -41,10 +69,10 @@ public class NoiseProvider {
         float x = 0;
         float y = 0;
         x = Random.value * 10f;
-        y = size/2 + Random.value * size/4;
+        y = size/2 + Random.value * size/6;
         points[0] = new Vector2((int)x, (int)y);
         x = size - (Random.value * 10f);
-		y = size/2 + Random.value * size/4;
+		y = size/2 + Random.value * size/6;
         points[points.Length-1] = new Vector2((int)x, (int)y);
         Vector2[] temp = points;
         points = recursivelyFindPoints(splits, temp);
@@ -58,7 +86,7 @@ public class NoiseProvider {
         float initx = tempPoints[0].x;
         float endx = tempPoints[tempPoints.Length - 1].x;
         x = ((initx+endx)/2f) + 5f-(Random.value * 10f);
-        y = size/2 + Random.value * size/4;
+        y = size/2 + Random.value * size/6;
         tempPoints[tempPoints.Length / 2] = new Vector2((int)x, (int)y);
         Vector2[] temp = new Vector2[(tempPoints.Length / 2) + 1];
         for (int i = 0; i < (tempPoints.Length / 2) + 1; i++)
@@ -111,9 +139,5 @@ public class NoiseProvider {
 
 		//solution = matrix.SolveWith (right);
 		solution = matrix.Invert() * right;
-
-		Debug.Log(matrix);
-		Debug.Log(right);
-		Debug.Log(solution);
     }
 }
