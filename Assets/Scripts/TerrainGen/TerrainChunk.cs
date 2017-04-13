@@ -14,12 +14,15 @@ public class TerrainChunk {
 
     private NoiseProvider NoiseProvider { get; set; }
 
-    public TerrainChunk(TerrainChunkSettings S, NoiseProvider NP, int XX, int ZZ)
+    private TerrainGen generator { get; set; }
+
+    public TerrainChunk(TerrainChunkSettings S, NoiseProvider NP, int XX, int ZZ, TerrainGen gen)
     {
         Settings = S;
         NoiseProvider = NP;
         X = XX;
         Z = ZZ;
+        this.generator = gen;
     }
 
     public void CreateTerrain()
@@ -50,34 +53,55 @@ public class TerrainChunk {
             for (var xRes = 0; xRes < Settings.HeightmapResolution; xRes++)
             {
                 //heightmap[zRes, xRes] = NoiseProvider.GetValue(xRes, zRes);
-                draftmap[zRes, xRes] = 0.2f;
+                draftmap[zRes, xRes] = 0.5f;
             }
         }
+
+        var lastZeroDeriv = 0;
 
         // Set the nearby X's to allow the canyon feel
         for (var xRes = 1; xRes < Settings.HeightmapResolution; xRes++)
         {
             var zRes = NoiseProvider.GetValue(xRes);
+
+            // if Z is outside bounds, trash it. Hopefully this is temp....
+            if (zRes < 0 || zRes > Settings.HeightmapResolution - 1)
+            {
+                if (zRes != -1)
+                {
+                    Debug.Log("Z is " + zRes + " which is outside bounds, trashing.");
+                    generator.TrashIt();
+                    GameObject.Destroy(Terrain);
+                    return draftmap;
+                }
+                continue;
+            }
+
 			var lastzRes = NoiseProvider.GetValue (xRes - 1);
-            if (zRes < 0 || zRes > Settings.HeightmapResolution-1) continue;
             // Find derivative
             var zResDeriv = NoiseProvider.GetDerivative(xRes);
-            var zResDerivPerp = -1 / zResDeriv;
-
-            // Now loop through every nearby and calculate the height via distance formula
-            for (int curX = xRes - 30; curX <= xRes + 30; curX++)
+            if (Mathf.Abs(zResDeriv) < 0.1f)
             {
-                if (curX > Settings.HeightmapResolution - 2 || curX < 0) continue;
-                //for (int curZ = zRes - (30 + (((int)Mathf.Abs(zResDeriv * 5)))); curZ <= zRes + 30 + (((int)Mathf.Abs(zResDeriv * 5))); curZ++)
-				for (int curZ = zRes - 30; curZ <= zRes + 30; curZ++)
+                lastZeroDeriv = xRes;
+                //Debug.Log("I has deriv less than 0.01f at " + xRes + "!");
+            }
+            // Now loop through every nearby and calculate the height via distance formula
+            for (int curX = xRes - 40; curX <= xRes + 40; curX++)
+            {
+                if (curX > Settings.HeightmapResolution - 2 || curX < 0 || curX < lastZeroDeriv)
+                {
+                    //Debug.Log("CurX : " + curX + " and lastZeroDeriv : " + lastZeroDeriv);
+                    continue;
+                }
+				for (int curZ = zRes - 40; curZ <= zRes + 40; curZ++)
 				{
                     if (curZ > Settings.HeightmapResolution - 2 || curZ < 0) continue;
-					//if (!(Mathf.Abs(curZ - (zRes + (xRes - curX) * zResDerivPerp)) < Mathf.Clamp (5 * Mathf.Abs (zResDeriv), 5.0f, 30.0f)))
-						//continue;
 					var distance1 = Mathf.Sqrt(Mathf.Pow(curX - (xRes - 1), 2) + Mathf.Pow(curZ - lastzRes, 2));
 					var distance2 = Mathf.Sqrt(Mathf.Pow(curX - xRes, 2) + Mathf.Pow(curZ - zRes, 2));
 					if (distance1 > distance2)
-						draftmap [curZ, curX] = distance2 / 38.0f * 0.2f + (0.015f - (Random.value * 0.03f));
+                    {
+                        draftmap[curZ, curX] = Mathf.Clamp(Mathf.Pow(distance2 / 60.0f, 2) * 0.5f + (0.015f - (Random.value * 0.04f)), 0.05f, 0.5f);
+                    }
                 }
             }
         }
@@ -90,10 +114,20 @@ public class TerrainChunk {
             // Find derivative
             var zResDeriv = NoiseProvider.GetDerivative(xRes);
             // Set the values of the function to the river bed.
-            for (int tempzRes = -10 - (((int)Mathf.Abs(zResDeriv * 5))); tempzRes <= 10 + (((int)Mathf.Abs(zResDeriv * 5))); tempzRes++)
+            if (Mathf.Abs(zResDeriv) < 0.1f)
             {
-                if (zRes + tempzRes > Settings.HeightmapResolution - 2 || zRes + tempzRes < 0) continue;
-                draftmap[zRes + tempzRes, xRes] = 0.05f;
+                for (int tempzRes = -17; tempzRes <= 17; tempzRes++)
+                {
+                    if (zRes + tempzRes > Settings.HeightmapResolution - 2 || zRes + tempzRes < 0) continue;
+                    draftmap[zRes + tempzRes, xRes] = 0.05f;
+                }
+            } else
+            {
+                for (int tempzRes = -15 - (((int)Mathf.Abs(zResDeriv * 5))); tempzRes <= 15 + (((int)Mathf.Abs(zResDeriv * 5))); tempzRes++)
+                {
+                    if (zRes + tempzRes > Settings.HeightmapResolution - 2 || zRes + tempzRes < 0) continue;
+                    draftmap[zRes + tempzRes, xRes] = 0.05f;
+                }
             }
         }
 

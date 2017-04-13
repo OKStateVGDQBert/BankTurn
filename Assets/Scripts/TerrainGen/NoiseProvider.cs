@@ -13,7 +13,8 @@ public class NoiseProvider {
         points = new Vector2[((int)(Mathf.Pow(2, splits-1))) + 1];
         size = max;
         findPoints(splits);
-        splinePoints();
+        //splinePoints();
+        biarcCurve();
     }
 
     public int GetValue(int x)
@@ -68,11 +69,11 @@ public class NoiseProvider {
     {
         float x = 0;
         float y = 0;
-        x = Random.value * 10f;
-        y = size/2 + Random.value * size/6;
+        x = 10.0f;
+        y = size/2;
         points[0] = new Vector2((int)x, (int)y);
-        x = size - (Random.value * 10f);
-		y = size/2 + Random.value * size/6;
+        x = size - 10.0f;
+        y = size / 2;
         points[points.Length-1] = new Vector2((int)x, (int)y);
         Vector2[] temp = points;
         points = recursivelyFindPoints(splits, temp);
@@ -86,7 +87,7 @@ public class NoiseProvider {
         float initx = tempPoints[0].x;
         float endx = tempPoints[tempPoints.Length - 1].x;
         x = ((initx+endx)/2f) + 5f-(Random.value * 10f);
-        y = size/2 + Random.value * size/6;
+        y = size/2 + (size / 6 - (Random.value * size / 3));
         tempPoints[tempPoints.Length / 2] = new Vector2((int)x, (int)y);
         Vector2[] temp = new Vector2[(tempPoints.Length / 2) + 1];
         for (int i = 0; i < (tempPoints.Length / 2) + 1; i++)
@@ -110,6 +111,20 @@ public class NoiseProvider {
         return tempPoints;
     }
     
+    void biarcCurve()
+    {
+        // Bearing: 0 = +x, 1 = -z, 2 = -x, 3 = +z
+        int bearing = 0;
+        float difference = 0.0f;
+        float distanc
+
+        for (int i = 0; i < points.Length - 1; i++) 
+        {
+            difference = points[i+1].magnitude - points[i].magnitude;
+        }
+
+    }
+
     public void splinePoints()
     {
 		Matrix matrix = new Matrix (3 * (points.Length - 1), 3 * (points.Length - 1));
