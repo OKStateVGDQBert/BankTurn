@@ -55,9 +55,10 @@ public class TerrainChunk {
         }
 
         // Set the nearby X's to allow the canyon feel
-        for (var xRes = 0; xRes < Settings.HeightmapResolution; xRes++)
+        for (var xRes = 1; xRes < Settings.HeightmapResolution; xRes++)
         {
             var zRes = NoiseProvider.GetValue(xRes);
+			var lastzRes = NoiseProvider.GetValue (xRes - 1);
             if (zRes < 0 || zRes > Settings.HeightmapResolution-1) continue;
             // Find derivative
             var zResDeriv = NoiseProvider.GetDerivative(xRes);
@@ -67,13 +68,16 @@ public class TerrainChunk {
             for (int curX = xRes - 30; curX <= xRes + 30; curX++)
             {
                 if (curX > Settings.HeightmapResolution - 2 || curX < 0) continue;
-                for (int curZ = zRes - (30 + (((int)Mathf.Abs(zResDeriv * 5)))); curZ <= zRes + 30 + (((int)Mathf.Abs(zResDeriv * 5))); curZ++)
-                {
+                //for (int curZ = zRes - (30 + (((int)Mathf.Abs(zResDeriv * 5)))); curZ <= zRes + 30 + (((int)Mathf.Abs(zResDeriv * 5))); curZ++)
+				for (int curZ = zRes - 30; curZ <= zRes + 30; curZ++)
+				{
                     if (curZ > Settings.HeightmapResolution - 2 || curZ < 0) continue;
-                    if (Mathf.Abs(curZ - zRes - (zResDerivPerp * (curX - xRes))) < Mathf.Max(Mathf.Abs(zResDeriv * 5), 5.0f) || Mathf.Abs(zResDeriv) < 0.1f)
-                    {
-                        draftmap[curZ, curX] = (Mathf.Sqrt(Mathf.Pow(curX - xRes, 2) + Mathf.Pow(curZ - zRes, 2)) / Mathf.Sqrt((30 * 30) + Mathf.Pow(30 + (((int)Mathf.Abs(zResDeriv * 5))), 2)) * 0.2f) + (0.015f - (Random.value * 0.03f));
-                    }
+					//if (!(Mathf.Abs(curZ - (zRes + (xRes - curX) * zResDerivPerp)) < Mathf.Clamp (5 * Mathf.Abs (zResDeriv), 5.0f, 30.0f)))
+						//continue;
+					var distance1 = Mathf.Sqrt(Mathf.Pow(curX - (xRes - 1), 2) + Mathf.Pow(curZ - lastzRes, 2));
+					var distance2 = Mathf.Sqrt(Mathf.Pow(curX - xRes, 2) + Mathf.Pow(curZ - zRes, 2));
+					if (distance1 > distance2)
+						draftmap [curZ, curX] = distance2 / 38.0f * 0.2f + (0.015f - (Random.value * 0.03f));
                 }
             }
         }
