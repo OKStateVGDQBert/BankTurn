@@ -1,0 +1,3 @@
+C# Cubic Spline Interpolation by Ryan Seghers. Obtained from:
+https://www.codeproject.com/Articles/560163/Csharp-Cubic-Spline-Interpolation
+at date 4/13/17

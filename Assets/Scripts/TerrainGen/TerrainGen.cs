@@ -8,6 +8,7 @@ public class TerrainGen : MonoBehaviour {
     public int cuts;
     public int size;
     public int height;
+    public int canyonwidth;
     private float timesincetrash = 0.0f;
     private bool trashing = false;
     private TerrainChunk terrain;
@@ -16,7 +17,7 @@ public class TerrainGen : MonoBehaviour {
 	void Start () {
         var settings = new TerrainChunkSettings(resolution, resolution, size, height);
         var noiseProvider = new NoiseProvider(cuts, resolution);
-        terrain = new TerrainChunk(settings, noiseProvider, 0, 0, this);
+        terrain = new TerrainChunk(settings, noiseProvider, canyonwidth, this);
         terrain.CreateTerrain();
     }
 	
@@ -38,7 +39,7 @@ public class TerrainGen : MonoBehaviour {
         timesincetrash = 0.0f;
         var settings = new TerrainChunkSettings(resolution, resolution, size, height);
         var noiseProvider = new NoiseProvider(cuts, resolution);
-        terrain = new TerrainChunk(settings, noiseProvider, 0, 0, this);
+        terrain = new TerrainChunk(settings, noiseProvider, canyonwidth, this);
         terrain.CreateTerrain();
     }
 }
