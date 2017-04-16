@@ -9,16 +9,17 @@ public class TerrainGen : MonoBehaviour {
     public int size;
     public int height;
     public int canyonwidth;
-    private float timesincetrash = 0.0f;
-    private bool trashing = false;
+    public int smoothlevel;
+    public Texture2D FlatTexture;
+    public Texture2D SteepTexture;
+
+    private float timesincetrash;
+    private bool trashing;
     private TerrainChunk terrain;
 
 	// Use this for initialization
 	void Start () {
-        var settings = new TerrainChunkSettings(resolution, resolution, size, height);
-        var noiseProvider = new NoiseProvider(cuts, resolution);
-        terrain = new TerrainChunk(settings, noiseProvider, canyonwidth, this);
-        terrain.CreateTerrain();
+        remakeMesh();
     }
 	
 	// Update is called once per frame
@@ -37,9 +38,8 @@ public class TerrainGen : MonoBehaviour {
     {
         trashing = false;
         timesincetrash = 0.0f;
-        var settings = new TerrainChunkSettings(resolution, resolution, size, height);
         var noiseProvider = new NoiseProvider(cuts, resolution);
-        terrain = new TerrainChunk(settings, noiseProvider, canyonwidth, this);
+        terrain = new TerrainChunk(resolution, size, height, noiseProvider, canyonwidth, smoothlevel, this, FlatTexture, SteepTexture);
         terrain.CreateTerrain();
     }
 }
