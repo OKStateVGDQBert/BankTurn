@@ -1,0 +1,157 @@
+fileFormatVersion: 2
+guid: 982c1a2bf331a72438f48a3f3c6add96
+timeCreated: 1492716332
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: group_1
+    100004: group_11_ID509
+    100006: group_1_ID296
+    100008: group_2_ID441
+    100010: group_2_ID449
+    100012: group_2_ID455
+    100014: group_4_ID463
+    100016: group_6_ID463
+    100018: group_8_ID494
+    100020: group_8_ID502
+    100022: group_9_ID509
+    100024: Sang
+    100026: Sang_ID536
+    100028: Sang_ID574
+    100030: Sang_ID582
+    100032: Sang_ID610
+    400000: //RootNode
+    400002: group_1
+    400004: group_11_ID509
+    400006: group_1_ID296
+    400008: group_2_ID441
+    400010: group_2_ID449
+    400012: group_2_ID455
+    400014: group_4_ID463
+    400016: group_6_ID463
+    400018: group_8_ID494
+    400020: group_8_ID502
+    400022: group_9_ID509
+    400024: Sang
+    400026: Sang_ID536
+    400028: Sang_ID574
+    400030: Sang_ID582
+    400032: Sang_ID610
+    2300000: group_1
+    2300002: group_11_ID509
+    2300004: group_1_ID296
+    2300006: group_2_ID441
+    2300008: group_2_ID449
+    2300010: group_2_ID455
+    2300012: group_4_ID463
+    2300014: group_6_ID463
+    2300016: group_8_ID494
+    2300018: group_8_ID502
+    2300020: group_9_ID509
+    2300022: Sang
+    2300024: Sang_ID536
+    2300026: Sang_ID574
+    2300028: Sang_ID582
+    2300030: Sang_ID610
+    3300000: group_1
+    3300002: group_11_ID509
+    3300004: group_1_ID296
+    3300006: group_2_ID441
+    3300008: group_2_ID449
+    3300010: group_2_ID455
+    3300012: group_4_ID463
+    3300014: group_6_ID463
+    3300016: group_8_ID494
+    3300018: group_8_ID502
+    3300020: group_9_ID509
+    3300022: Sang
+    3300024: Sang_ID536
+    3300026: Sang_ID574
+    3300028: Sang_ID582
+    3300030: Sang_ID610
+    4300000: group_1
+    4300002: group_11_ID509
+    4300004: group_1_ID296
+    4300006: group_2_ID441
+    4300008: group_2_ID449
+    4300010: group_2_ID455
+    4300012: group_4_ID463
+    4300014: group_6_ID463
+    4300016: group_8_ID494
+    4300018: group_8_ID502
+    4300020: group_9_ID509
+    4300022: Sang
+    4300024: Sang_ID536
+    4300026: Sang_ID574
+    4300028: Sang_ID582
+    4300030: Sang_ID610
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

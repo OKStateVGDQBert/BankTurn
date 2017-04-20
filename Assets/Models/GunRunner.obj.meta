@@ -1,0 +1,172 @@
+fileFormatVersion: 2
+guid: ee8397265c7aa5a4886227f5d67eb147
+timeCreated: 1492716334
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Bottom_Fin_ID68
+    100002: Canopy_Windshield
+    100004: group_0_ID374
+    100006: Gun
+    100008: //RootNode
+    100010: Hardpoints
+    100012: HUD
+    100014: HUD_ID149
+    100016: Lower_Engines
+    100018: Lower_Fin_ID433
+    100020: Main_Body
+    100022: Nav_Light_ID440
+    100024: PAC_ID111
+    100026: Pilot_2
+    100028: Seat_2_ID173
+    100030: Sticks_3
+    100032: Upper_Engines
+    100034: Upper_Fin_ID125
+    100036: Upper_Nose_ID201
+    100038: Wings
+    400000: Bottom_Fin_ID68
+    400002: Canopy_Windshield
+    400004: group_0_ID374
+    400006: Gun
+    400008: //RootNode
+    400010: Hardpoints
+    400012: HUD
+    400014: HUD_ID149
+    400016: Lower_Engines
+    400018: Lower_Fin_ID433
+    400020: Main_Body
+    400022: Nav_Light_ID440
+    400024: PAC_ID111
+    400026: Pilot_2
+    400028: Seat_2_ID173
+    400030: Sticks_3
+    400032: Upper_Engines
+    400034: Upper_Fin_ID125
+    400036: Upper_Nose_ID201
+    400038: Wings
+    2300000: Bottom_Fin_ID68
+    2300002: Canopy_Windshield
+    2300004: group_0_ID374
+    2300006: Gun
+    2300008: Hardpoints
+    2300010: HUD
+    2300012: HUD_ID149
+    2300014: Lower_Engines
+    2300016: Lower_Fin_ID433
+    2300018: Main_Body
+    2300020: Nav_Light_ID440
+    2300022: PAC_ID111
+    2300024: Pilot_2
+    2300026: Seat_2_ID173
+    2300028: Sticks_3
+    2300030: Upper_Engines
+    2300032: Upper_Fin_ID125
+    2300034: Upper_Nose_ID201
+    2300036: Wings
+    3300000: Bottom_Fin_ID68
+    3300002: Canopy_Windshield
+    3300004: group_0_ID374
+    3300006: Gun
+    3300008: Hardpoints
+    3300010: HUD
+    3300012: HUD_ID149
+    3300014: Lower_Engines
+    3300016: Lower_Fin_ID433
+    3300018: Main_Body
+    3300020: Nav_Light_ID440
+    3300022: PAC_ID111
+    3300024: Pilot_2
+    3300026: Seat_2_ID173
+    3300028: Sticks_3
+    3300030: Upper_Engines
+    3300032: Upper_Fin_ID125
+    3300034: Upper_Nose_ID201
+    3300036: Wings
+    4300000: Bottom_Fin_ID68
+    4300002: Canopy_Windshield
+    4300004: group_0_ID374
+    4300006: Gun
+    4300008: Hardpoints
+    4300010: HUD
+    4300012: HUD_ID149
+    4300014: Lower_Engines
+    4300016: Lower_Fin_ID433
+    4300018: Main_Body
+    4300020: Nav_Light_ID440
+    4300022: PAC_ID111
+    4300024: Pilot_2
+    4300026: Seat_2_ID173
+    4300028: Sticks_3
+    4300030: Upper_Engines
+    4300032: Upper_Fin_ID125
+    4300034: Upper_Nose_ID201
+    4300036: Wings
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

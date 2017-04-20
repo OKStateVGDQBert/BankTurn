@@ -1,0 +1,192 @@
+fileFormatVersion: 2
+guid: 8b056e002a502974a8b51aa45ee83183
+timeCreated: 1492716327
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: SketchUp
+    100004: SketchUp_ID1188
+    100006: SketchUp_ID1369
+    100008: SketchUp_ID1377
+    100010: SketchUp_ID1403
+    100012: SketchUp_ID1467
+    100014: SketchUp_ID1487
+    100016: SketchUp_ID1513
+    100018: SketchUp_ID1565
+    100020: SketchUp_ID1591
+    100022: SketchUp_ID1617
+    100024: SketchUp_ID1631
+    100026: SketchUp_ID1841
+    100028: SketchUp_ID648
+    100030: SketchUp_ID664
+    100032: SketchUp_ID766
+    100034: SketchUp_ID780
+    100036: SketchUp_ID788
+    100038: SketchUp_ID796
+    100040: SketchUp_ID804
+    100042: SketchUp_ID812
+    100044: SketchUp_ID832
+    100046: SketchUp_ID871
+    400000: //RootNode
+    400002: SketchUp
+    400004: SketchUp_ID1188
+    400006: SketchUp_ID1369
+    400008: SketchUp_ID1377
+    400010: SketchUp_ID1403
+    400012: SketchUp_ID1467
+    400014: SketchUp_ID1487
+    400016: SketchUp_ID1513
+    400018: SketchUp_ID1565
+    400020: SketchUp_ID1591
+    400022: SketchUp_ID1617
+    400024: SketchUp_ID1631
+    400026: SketchUp_ID1841
+    400028: SketchUp_ID648
+    400030: SketchUp_ID664
+    400032: SketchUp_ID766
+    400034: SketchUp_ID780
+    400036: SketchUp_ID788
+    400038: SketchUp_ID796
+    400040: SketchUp_ID804
+    400042: SketchUp_ID812
+    400044: SketchUp_ID832
+    400046: SketchUp_ID871
+    2300000: SketchUp
+    2300002: SketchUp_ID1188
+    2300004: SketchUp_ID1369
+    2300006: SketchUp_ID1377
+    2300008: SketchUp_ID1403
+    2300010: SketchUp_ID1467
+    2300012: SketchUp_ID1487
+    2300014: SketchUp_ID1513
+    2300016: SketchUp_ID1565
+    2300018: SketchUp_ID1591
+    2300020: SketchUp_ID1617
+    2300022: SketchUp_ID1631
+    2300024: SketchUp_ID1841
+    2300026: SketchUp_ID648
+    2300028: SketchUp_ID664
+    2300030: SketchUp_ID766
+    2300032: SketchUp_ID780
+    2300034: SketchUp_ID788
+    2300036: SketchUp_ID796
+    2300038: SketchUp_ID804
+    2300040: SketchUp_ID812
+    2300042: SketchUp_ID832
+    2300044: SketchUp_ID871
+    3300000: SketchUp
+    3300002: SketchUp_ID1188
+    3300004: SketchUp_ID1369
+    3300006: SketchUp_ID1377
+    3300008: SketchUp_ID1403
+    3300010: SketchUp_ID1467
+    3300012: SketchUp_ID1487
+    3300014: SketchUp_ID1513
+    3300016: SketchUp_ID1565
+    3300018: SketchUp_ID1591
+    3300020: SketchUp_ID1617
+    3300022: SketchUp_ID1631
+    3300024: SketchUp_ID1841
+    3300026: SketchUp_ID648
+    3300028: SketchUp_ID664
+    3300030: SketchUp_ID766
+    3300032: SketchUp_ID780
+    3300034: SketchUp_ID788
+    3300036: SketchUp_ID796
+    3300038: SketchUp_ID804
+    3300040: SketchUp_ID812
+    3300042: SketchUp_ID832
+    3300044: SketchUp_ID871
+    4300000: SketchUp
+    4300002: SketchUp_ID1188
+    4300004: SketchUp_ID1369
+    4300006: SketchUp_ID1377
+    4300008: SketchUp_ID1403
+    4300010: SketchUp_ID1467
+    4300012: SketchUp_ID1487
+    4300014: SketchUp_ID1513
+    4300016: SketchUp_ID1565
+    4300018: SketchUp_ID1591
+    4300020: SketchUp_ID1617
+    4300022: SketchUp_ID1631
+    4300024: SketchUp_ID1841
+    4300026: SketchUp_ID648
+    4300028: SketchUp_ID664
+    4300030: SketchUp_ID766
+    4300032: SketchUp_ID780
+    4300034: SketchUp_ID788
+    4300036: SketchUp_ID796
+    4300038: SketchUp_ID804
+    4300040: SketchUp_ID812
+    4300042: SketchUp_ID832
+    4300044: SketchUp_ID871
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
