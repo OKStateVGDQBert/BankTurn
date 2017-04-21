@@ -15,14 +15,13 @@ public class Ball_Controller : MonoBehaviour {
 
     void FixedUpdate()
     {
-        tran.position = ship.transform.position;
+        Vector3 diff = tran.position - ship.transform.position;
+
+        Vector3 move = (Vector3.Dot(tran.forward, diff) / tran.forward.sqrMagnitude) * tran.forward;
+
+        tran.position = tran.position - move;
+
         //Debug.DrawLine(tran.position, tran.position + tran.forward*10);
-
-        RaycastHit leftSide;
-        RaycastHit rightSide;
-
-        Physics.Raycast(tran.position, tran.right * -1, out leftSide);
-        Physics.Raycast(tran.position, tran.right, out rightSide);
 
         bool castLeft  = Physics.Raycast(tran.position, tran.forward - tran.right, 25);
         bool castMid   = Physics.Raycast(tran.position, tran.forward             , 25);
