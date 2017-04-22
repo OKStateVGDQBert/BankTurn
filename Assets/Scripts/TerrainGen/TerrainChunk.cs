@@ -26,6 +26,10 @@ public class TerrainChunk {
 
     private Texture2D steepText { get; set; }
 
+    private GameObject[] enemies { get; set; }
+
+    private float enemyFrequency { get; set; }
+
 
     public TerrainChunk(int hmr, int l, int h, NoiseProvider NP, int cwidth, int smooth, TerrainGen gen, Texture2D flat, Texture2D steep)
     {
@@ -39,6 +43,22 @@ public class TerrainChunk {
         generator = gen;
         flatText = flat;
         steepText = steep;
+    }
+
+    public TerrainChunk(int hmr, int l, int h, NoiseProvider NP, int cwidth, int smooth, TerrainGen gen, Texture2D flat, Texture2D steep, GameObject[] enem, float freq)
+    {
+        HeightMapResolution = hmr;
+        AlphaMapResolution = hmr;
+        Height = h;
+        Length = l;
+        NoiseProvider = NP;
+        canyonwidth = cwidth;
+        smoothlevel = smooth;
+        generator = gen;
+        flatText = flat;
+        steepText = steep;
+        enemies = enem;
+        enemyFrequency = freq;
     }
 
     public void CreateTerrain()
@@ -132,6 +152,7 @@ public class TerrainChunk {
         }
 
         // Set any spot on the line to 5%
+        int lastMonster = Mathf.RoundToInt(Length * enemyFrequency);
         for (var xRes = 0; xRes < HeightMapResolution; xRes++)
         {
             var zRes = NoiseProvider.GetValue(xRes);
@@ -143,6 +164,19 @@ public class TerrainChunk {
             {
                 if (zRes + tempzRes > HeightMapResolution - 2 || zRes + tempzRes < 0) continue;
                 draftmap[zRes + tempzRes, xRes] = 0.05f;
+            }
+            // Check distance to last enemy if we have an enemies array
+            if (enemies != null && xRes - lastMonster  > Mathf.RoundToInt(Length * enemyFrequency))
+            {
+                // Random chance to spawn an enemy
+                if (Random.value > 0.9f)
+                {
+                    // Spawn a random enemy
+                    int index = Mathf.RoundToInt(Random.value * (enemies.Length - 1));
+                    GameObject tempEnemy = GameObject.Instantiate(enemies[index]);
+                    tempEnemy.transform.position = new Vector3(xRes*Length/HeightMapResolution, 25 + Random.value, zRes*Length/HeightMapResolution);
+                    lastMonster = xRes;
+                }
             }
         }
 
