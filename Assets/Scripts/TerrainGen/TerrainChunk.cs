@@ -30,6 +30,10 @@ public class TerrainChunk {
 
     private float enemyFrequency { get; set; }
 
+    private GameObject coin { get; set; }
+
+    private float coinFrequency { get; set; }
+
 
     public TerrainChunk(int hmr, int l, int h, NoiseProvider NP, int cwidth, int smooth, TerrainGen gen, Texture2D flat, Texture2D steep)
     {
@@ -45,7 +49,7 @@ public class TerrainChunk {
         steepText = steep;
     }
 
-    public TerrainChunk(int hmr, int l, int h, NoiseProvider NP, int cwidth, int smooth, TerrainGen gen, Texture2D flat, Texture2D steep, GameObject[] enem, float freq)
+    public TerrainChunk(int hmr, int l, int h, NoiseProvider NP, int cwidth, int smooth, TerrainGen gen, Texture2D flat, Texture2D steep, GameObject[] enem, float freq, GameObject co, float coFreq)
     {
         HeightMapResolution = hmr;
         AlphaMapResolution = hmr;
@@ -59,6 +63,8 @@ public class TerrainChunk {
         steepText = steep;
         enemies = enem;
         enemyFrequency = freq;
+        coin = co;
+        coinFrequency = coFreq;
     }
 
     public void CreateTerrain()
@@ -152,7 +158,8 @@ public class TerrainChunk {
         }
 
         // Set any spot on the line to 5%
-        int lastMonster = Mathf.RoundToInt(Length * enemyFrequency);
+        int lastMonster = Mathf.RoundToInt(HeightMapResolution * enemyFrequency);
+        int lastCoin = Mathf.RoundToInt(HeightMapResolution * coinFrequency);
         for (var xRes = 0; xRes < HeightMapResolution; xRes++)
         {
             var zRes = NoiseProvider.GetValue(xRes);
@@ -166,7 +173,7 @@ public class TerrainChunk {
                 draftmap[zRes + tempzRes, xRes] = 0.05f;
             }
             // Check distance to last enemy if we have an enemies array
-            if (enemies != null && xRes - lastMonster  > Mathf.RoundToInt(Length * enemyFrequency))
+            if (enemies != null && xRes - lastMonster  > Mathf.RoundToInt(HeightMapResolution * enemyFrequency))
             {
                 // Random chance to spawn an enemy
                 if (Random.value > 0.9f)
@@ -174,8 +181,19 @@ public class TerrainChunk {
                     // Spawn a random enemy
                     int index = Mathf.RoundToInt(Random.value * (enemies.Length - 1));
                     GameObject tempEnemy = GameObject.Instantiate(enemies[index]);
-                    tempEnemy.transform.position = new Vector3(xRes*Length/HeightMapResolution, 25 + Random.value, zRes*Length/HeightMapResolution);
+                    tempEnemy.transform.position = new Vector3((xRes * Length / HeightMapResolution) + (5 - (Random.value * 10)), 25 + (Random.value * 5), (zRes * Length / HeightMapResolution) + (5 - (Random.value * 10)));
                     lastMonster = xRes;
+                }
+            }
+            // Check distance to last coin and spawn it
+            if (coin != null && xRes - lastCoin > Mathf.RoundToInt(HeightMapResolution * coinFrequency))
+            {
+                // Random chance to spawn a coin
+                if (Random.value > 0.9f)
+                {
+                    GameObject tempCoin = GameObject.Instantiate(coin);
+                    tempCoin.transform.position = new Vector3((xRes * Length / HeightMapResolution) + (5 - (Random.value*10)), 25 + (Random.value * 5), (zRes * Length / HeightMapResolution) + (5 - (Random.value * 10)));
+                    lastCoin = xRes;
                 }
             }
         }

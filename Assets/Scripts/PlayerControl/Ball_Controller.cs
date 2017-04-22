@@ -34,6 +34,9 @@ public class Ball_Controller : MonoBehaviour {
 
         if (castLeft && castMid && castRight)
         {
+            // Hopefully a temporary fix
+            tran.position = ship.transform.position - new Vector3(0, ship.transform.position.y - 25);
+            tran.rotation = ship.transform.rotation;
             //Debug.Log("OH GOD A WALL!");
         }
         else if (castLeft && castMid)
@@ -51,13 +54,13 @@ public class Ball_Controller : MonoBehaviour {
         else if (castLeft && castedLeft)
         {
             Quaternion newRot = Quaternion.Euler(0, 45, 0);
-            tran.rotation = Quaternion.Lerp(tran.rotation, tran.rotation * newRot, Time.fixedDeltaTime * 0.2f);
+            tran.rotation = Quaternion.Lerp(tran.rotation, tran.rotation * newRot, Time.fixedDeltaTime * 0.5f);
             //tran.Rotate(new Vector3(0, cameraTurnSpeed * Time.fixedDeltaTime));
         }
         else if (castRight && castedRight)
         {
             Quaternion newRot = Quaternion.Euler(0, -45, 0);
-            tran.rotation = Quaternion.Lerp(tran.rotation, tran.rotation * newRot, Time.fixedDeltaTime * 0.2f);
+            tran.rotation = Quaternion.Lerp(tran.rotation, tran.rotation * newRot, Time.fixedDeltaTime * 0.5f);
             //tran.Rotate(new Vector3(0, -cameraTurnSpeed * Time.fixedDeltaTime));
         }
 

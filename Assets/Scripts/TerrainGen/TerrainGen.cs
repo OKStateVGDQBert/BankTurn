@@ -14,6 +14,8 @@ public class TerrainGen : MonoBehaviour {
     public Texture2D SteepTexture;
     public GameObject[] enemies;
     public float enemyFrequency;
+    public GameObject coin;
+    public float coinFrequency;
 
     private float timesincetrash;
     private bool trashing;
@@ -41,7 +43,7 @@ public class TerrainGen : MonoBehaviour {
         trashing = false;
         timesincetrash = 0.0f;
         var noiseProvider = new NoiseProvider(cuts, resolution);
-        terrain = new TerrainChunk(resolution, size, height, noiseProvider, canyonwidth, smoothlevel, this, FlatTexture, SteepTexture, enemies, enemyFrequency);
+        terrain = new TerrainChunk(resolution, size, height, noiseProvider, canyonwidth, smoothlevel, this, FlatTexture, SteepTexture, enemies, enemyFrequency, coin, coinFrequency);
         terrain.CreateTerrain();
     }
 }
