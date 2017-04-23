@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class button_functions : MonoBehaviour {
 
@@ -27,6 +29,21 @@ public class button_functions : MonoBehaviour {
     {
         StartPanel.SetActive(true);
         ChoosePanel.SetActive(false);
+    }
+
+    public void EarthButtonFunc()
+    {
+        SceneManager.LoadScene("Earth");
+    }
+
+    public void DifficultySliderFunc()
+    {
+        Data_Manager.difficulty = (int)(gameObject.GetComponent(typeof(Slider)) as Slider).value;
+    }
+
+    public void ShipSelectorFunc()
+    {
+        Data_Manager.shipType = (gameObject.GetComponent(typeof(Dropdown)) as Dropdown).value;
     }
 
 }
