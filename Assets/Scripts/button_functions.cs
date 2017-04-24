@@ -39,15 +39,23 @@ public class button_functions : MonoBehaviour {
         ChoosePanel.SetActive(false);
         LoadGamePanel.SetActive(true);
         SceneManager.LoadScene("Earth");
-	}
+    }
 
-	public void MoonButtonFunc()
+    public void MoonButtonFunc()
     {
         StartPanel.SetActive(false);
         ChoosePanel.SetActive(false);
         LoadGamePanel.SetActive(true);
         SceneManager.LoadScene("Moon");
-	}
+    }
+
+    public void VenusButtonFunc()
+    {
+        StartPanel.SetActive(false);
+        ChoosePanel.SetActive(false);
+        LoadGamePanel.SetActive(true);
+        SceneManager.LoadScene("Venus");
+    }
 
     public void DifficultySliderFunc()
     {
