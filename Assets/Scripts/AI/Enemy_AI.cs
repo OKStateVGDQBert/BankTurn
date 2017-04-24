@@ -21,10 +21,13 @@ public class Enemy_AI : MonoBehaviour {
             {
                 RaycastHit hit;
                 bool castMid = Physics.Linecast(transform.position, player.transform.position, out hit);
-                if (castMid || hit.transform.position == player.transform.position)
-                {
-                    transform.position = Vector3.Lerp(transform.position, player.transform.position, Time.deltaTime * moveSpeed);
-                }
+				// The collider is attached to a gameobject that is a child of the player.
+				if (hit.collider.gameObject.transform.parent != null)
+				{
+					if (castMid && hit.collider.gameObject.transform.parent.gameObject.tag == "Player") {
+						transform.position = Vector3.Lerp (transform.position, player.transform.position, Time.deltaTime * moveSpeed);
+					}
+				}
             }
         }
     }

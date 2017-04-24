@@ -10,6 +10,8 @@ public class button_functions : MonoBehaviour {
     GameObject StartPanel;
     [SerializeField]
     GameObject ChoosePanel;
+    [SerializeField]
+    GameObject LoadGamePanel;
 
     public void StartButtonFunc()
     {
@@ -29,12 +31,23 @@ public class button_functions : MonoBehaviour {
     {
         StartPanel.SetActive(true);
         ChoosePanel.SetActive(false);
-    }
+	}
 
-    public void EarthButtonFunc()
+	public void EarthButtonFunc()
     {
+        StartPanel.SetActive(false);
+        ChoosePanel.SetActive(false);
+        LoadGamePanel.SetActive(true);
         SceneManager.LoadScene("Earth");
-    }
+	}
+
+	public void MoonButtonFunc()
+    {
+        StartPanel.SetActive(false);
+        ChoosePanel.SetActive(false);
+        LoadGamePanel.SetActive(true);
+        SceneManager.LoadScene("Moon");
+	}
 
     public void DifficultySliderFunc()
     {
