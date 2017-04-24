@@ -85,6 +85,7 @@ public class TerrainChunk {
         applyTextures(terrainData);
 
         var newTerrainGameObject = Terrain.CreateTerrainGameObject(terrainData);
+        newTerrainGameObject.layer = 8;
         newTerrainGameObject.transform.position = new Vector3(0, 0, 0);
         Terrain = newTerrainGameObject.GetComponent<Terrain>();
         Terrain.Flush();
