@@ -92,7 +92,7 @@ public class Ball_Controller : MonoBehaviour {
 
     void ResetCameraPosition()
     {
-		tran.position = player.transform.position - new Vector3(0, player.transform.position.y - 15f, player.transform.position.z-5f);
+		tran.position = player.transform.position;
         tran.rotation = player.transform.rotation;
     }
 
