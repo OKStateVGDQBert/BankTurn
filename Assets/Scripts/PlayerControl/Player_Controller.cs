@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player_Controller : MonoBehaviour {
     
     private Transform tran;
+	GameObject mainCamera;
     public int turnSpeed = 1;
 	public float maxY = 5.0f;
 	public float minY = 5.0f;
@@ -13,6 +14,7 @@ public class Player_Controller : MonoBehaviour {
 
     void Start () {
         tran = gameObject.GetComponent(typeof(Transform)) as Transform;
+		mainCamera = GameObject.Find ("Main Camera");
     }
 	
 	void FixedUpdate ()
@@ -42,6 +44,7 @@ public class Player_Controller : MonoBehaviour {
                 }
             }
             tran.position = tran.position + yComp;
+			mainCamera.transform.position = mainCamera.transform.position + yComp;
         }
         else
         {

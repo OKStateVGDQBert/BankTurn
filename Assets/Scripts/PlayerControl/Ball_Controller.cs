@@ -22,13 +22,13 @@ public class Ball_Controller : MonoBehaviour {
         switch (Data_Manager.shipType)
         {
             case 0:
-                cameraTurnSpeed = 4;
+                cameraTurnSpeed = 5;
                 break;
             case 1:
-                cameraTurnSpeed = 3;
+                cameraTurnSpeed = 4;
                 break;
             default:
-                cameraTurnSpeed = 2;
+                cameraTurnSpeed = 3;
                 break;
         }
     }
@@ -92,7 +92,7 @@ public class Ball_Controller : MonoBehaviour {
 
     void ResetCameraPosition()
     {
-        tran.position = player.transform.position - new Vector3(0, player.transform.position.y - 25);
+		tran.position = player.transform.position - new Vector3(0, player.transform.position.y - 15f, player.transform.position.z-5f);
         tran.rotation = player.transform.rotation;
     }
 
