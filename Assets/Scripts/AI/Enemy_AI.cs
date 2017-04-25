@@ -23,11 +23,9 @@ public class Enemy_AI : MonoBehaviour {
                 RaycastHit hit;
                 bool castMid = Physics.Linecast(transform.position, player.transform.position, out hit);
 				// The collider is attached to a gameobject that is a child of the player.
-				if (hit.collider.gameObject.transform.parent != null)
+				if (Data_Manager.IsPlayer(hit.collider))
 				{
-					if (castMid && hit.collider.gameObject.transform.parent.gameObject.tag == "Player") {
-						transform.position = Vector3.Lerp (transform.position, player.transform.position, Time.deltaTime * moveSpeed);
-					}
+					transform.position = Vector3.Lerp (transform.position, player.transform.position, Time.deltaTime * moveSpeed);
 				}
             }
         }
@@ -35,18 +33,13 @@ public class Enemy_AI : MonoBehaviour {
 
     void OnCollisionEnter(Collision coll)
     {
-        // If our Collider is on a GameObject that has a parent.
-        if (coll.gameObject.transform.parent != null)
-        {
-            // Grab that parent's tag and check to see if they're a player.
-            if (coll.gameObject.transform.parent.gameObject.tag == "Player")
+        if (Data_Manager.IsPlayer(coll.collider))
+        { 
+            var PC = coll.gameObject.transform.parent.gameObject.GetComponent(typeof(Player_Controller)) as Player_Controller;
+            if (PC != null)
             {
-                var PC = coll.gameObject.transform.parent.gameObject.GetComponent(typeof(Player_Controller)) as Player_Controller;
-                if (PC != null)
-                {
-                    PC.TakeLife();
-                    GameObject.Destroy(gameObject);
-                }
+                PC.TakeLife();
+                GameObject.Destroy(gameObject);
             }
         }
     }

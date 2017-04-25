@@ -15,5 +15,21 @@ public class Data_Manager : MonoBehaviour {
     public static bool underPlayerControl = false;
     // If the player is in the menus.
     public static bool inMenu = false;
+    // If the player has died/reached the end.
+    public static bool gameOver = false;
+
+    public static bool IsPlayer(Collider coll)
+    {
+        // If our Collider is on a GameObject that has a parent.
+        if (coll.gameObject.transform.parent != null)
+        {
+            // Grab that parent's tag and check to see if they're a player.
+            if (coll.gameObject.transform.parent.gameObject.tag == "Player")
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

@@ -40,6 +40,7 @@ public class button_functions : MonoBehaviour {
         LoadGamePanel.SetActive(true);
         Data_Manager.underPlayerControl = false;
         Data_Manager.inMenu = false;
+        Data_Manager.gameOver = false;
         SceneManager.LoadScene("Earth");
     }
 
@@ -50,6 +51,7 @@ public class button_functions : MonoBehaviour {
         LoadGamePanel.SetActive(true);
         Data_Manager.underPlayerControl = false;
         Data_Manager.inMenu = false;
+        Data_Manager.gameOver = false;
         SceneManager.LoadScene("Moon");
     }
 
@@ -60,6 +62,7 @@ public class button_functions : MonoBehaviour {
         LoadGamePanel.SetActive(true);
         Data_Manager.underPlayerControl = false;
         Data_Manager.inMenu = false;
+        Data_Manager.gameOver = false;
         SceneManager.LoadScene("Venus");
     }
 

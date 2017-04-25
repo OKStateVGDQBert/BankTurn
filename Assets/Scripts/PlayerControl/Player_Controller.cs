@@ -6,8 +6,9 @@ public class Player_Controller : MonoBehaviour {
     
     private Transform tran;
     private GameObject mainCamera;
-    private GameObject menuCanvas;
-    private GameObject menuEventSystem;
+    private GameObject menuPanel;
+    private GameObject gameOverPanel;
+    private GameObject startGamePanel;
     private int coins = 0;
     private int lives = 3;
     private float lastMenuPress = 0.0f;
@@ -23,15 +24,16 @@ public class Player_Controller : MonoBehaviour {
     void Start () {
         tran = gameObject.GetComponent(typeof(Transform)) as Transform;
 		mainCamera = GameObject.Find ("Main Camera");
-        menuCanvas = GameObject.Find ("Menu_Canvas");
-        menuEventSystem = GameObject.Find ("Menu_EventSystem");
-        menuCanvas.SetActive(false);
-        menuEventSystem.SetActive(false);
+        menuPanel = GameObject.Find ("Menu");
+        gameOverPanel = GameObject.Find ("GameOver");
+        startGamePanel = GameObject.Find("StartGame");
+        menuPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
     }
 	
 	void FixedUpdate ()
     {
-        if (Data_Manager.underPlayerControl && !Data_Manager.inMenu)
+        if (Data_Manager.underPlayerControl && !Data_Manager.inMenu && !Data_Manager.gameOver)
         {
             // Rotate the ship
             tran.RotateAround(tran.position, tran.up, turnSpeed * Input.GetAxis("Horizontal") * Time.fixedDeltaTime);
@@ -60,8 +62,7 @@ public class Player_Controller : MonoBehaviour {
             if (Time.time - lastMenuPress > 1.0f && Input.GetAxis("Cancel") > 0)
             {
                 Data_Manager.inMenu = true;
-                menuCanvas.SetActive(true);
-                menuEventSystem.SetActive(true);
+                menuPanel.SetActive(true);
                 lastMenuPress = Time.time;
             }
         }
@@ -72,8 +73,7 @@ public class Player_Controller : MonoBehaviour {
 
                 if (Input.GetAxis("Cancel") > 0)
                 {
-                    menuCanvas.SetActive(false);
-                    menuEventSystem.SetActive(false);
+                    menuPanel.SetActive(false);
                     Data_Manager.inMenu = false;
                     lastMenuPress = Time.time;
                 }
@@ -82,10 +82,16 @@ public class Player_Controller : MonoBehaviour {
             {
                 if (Input.GetAxis("Jump") > 0)
                 {
-                    menuCanvas.SetActive(false);
-                    menuEventSystem.SetActive(false);
+                    (startGamePanel.GetComponent(typeof(Panel_Fade)) as Panel_Fade).StartFade();
                     Data_Manager.underPlayerControl = true;
                     tran.SetParent(null);
+                }
+            }
+            if (Data_Manager.gameOver)
+            {
+                if (Input.GetAxis("Jump") > 0)
+                {
+                    UnityEngine.SceneManagement.SceneManager.LoadScene("Main_Menu");
                 }
             }
         }
@@ -106,8 +112,8 @@ public class Player_Controller : MonoBehaviour {
         lives--;
         if (lives < 0)
         {
-            // Game Over
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Main_Menu");
+            Data_Manager.gameOver = true;
+            gameOverPanel.SetActive(true);
         }
     }
 }
