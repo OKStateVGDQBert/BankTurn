@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy_AI : MonoBehaviour {
 
     private GameObject player;
-    public int moveSpeed = 1;
+    [SerializeField]
+    private int moveSpeed = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +15,7 @@ public class Enemy_AI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (player != null)
+        if (player != null && Data_Manager.underPlayerControl && !Data_Manager.inMenu)
         {
             transform.LookAt(player.transform);
             if (Vector3.Distance(transform.position, player.transform.position) < 60.0f)
@@ -34,7 +35,19 @@ public class Enemy_AI : MonoBehaviour {
 
     void OnCollisionEnter(Collision coll)
     {
-        Debug.Log("U got hit!");
-        GameObject.Destroy(gameObject);
+        // If our Collider is on a GameObject that has a parent.
+        if (coll.gameObject.transform.parent != null)
+        {
+            // Grab that parent's tag and check to see if they're a player.
+            if (coll.gameObject.transform.parent.gameObject.tag == "Player")
+            {
+                var PC = coll.gameObject.transform.parent.gameObject.GetComponent(typeof(Player_Controller)) as Player_Controller;
+                if (PC != null)
+                {
+                    PC.TakeLife();
+                    GameObject.Destroy(gameObject);
+                }
+            }
+        }
     }
 }

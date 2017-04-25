@@ -16,7 +16,19 @@ public class Coin_Pickup : MonoBehaviour {
 
     void OnCollisionEnter(Collision coll)
     {
-        Debug.Log("Coin Collected!");
-        GameObject.Destroy(gameObject);
+        // If our Collider is on a GameObject that has a parent.
+        if (coll.gameObject.transform.parent != null)
+        {
+            // Grab that parent's tag and check to see if they're a player.
+            if (coll.gameObject.transform.parent.gameObject.tag == "Player")
+            {
+                var PC = coll.gameObject.transform.parent.gameObject.GetComponent(typeof(Player_Controller)) as Player_Controller;
+                if (PC != null)
+                {
+                    PC.GiveCoin();
+                    GameObject.Destroy(gameObject);
+                }
+            }
+        }
     }
 }

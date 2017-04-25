@@ -5,21 +5,33 @@ using UnityEngine;
 public class Player_Controller : MonoBehaviour {
     
     private Transform tran;
-	GameObject mainCamera;
-    public int turnSpeed = 1;
-	public float maxY = 5.0f;
-	public float minY = 5.0f;
-    public int forwardSpeed = 1;
-    private bool underPlayerControl = false;
+    private GameObject mainCamera;
+    private GameObject menuCanvas;
+    private GameObject menuEventSystem;
+    private int coins = 0;
+    private int lives = 3;
+    private float lastMenuPress = 0.0f;
+    [SerializeField]
+    private int turnSpeed = 1;
+    [SerializeField]
+    private float maxY = 5.0f;
+    [SerializeField]
+    private float minY = 5.0f;
+    [SerializeField]
+    private int forwardSpeed = 1;
 
     void Start () {
         tran = gameObject.GetComponent(typeof(Transform)) as Transform;
 		mainCamera = GameObject.Find ("Main Camera");
+        menuCanvas = GameObject.Find ("Menu_Canvas");
+        menuEventSystem = GameObject.Find ("Menu_EventSystem");
+        menuCanvas.SetActive(false);
+        menuEventSystem.SetActive(false);
     }
 	
 	void FixedUpdate ()
     {
-        if (underPlayerControl)
+        if (Data_Manager.underPlayerControl && !Data_Manager.inMenu)
         {
             // Rotate the ship
             tran.RotateAround(tran.position, tran.up, turnSpeed * Input.GetAxis("Horizontal") * Time.fixedDeltaTime);
@@ -45,14 +57,57 @@ public class Player_Controller : MonoBehaviour {
             }
             tran.position = tran.position + yComp;
 			mainCamera.transform.position = mainCamera.transform.position + yComp;
+            if (Time.time - lastMenuPress > 1.0f && Input.GetAxis("Cancel") > 0)
+            {
+                Data_Manager.inMenu = true;
+                menuCanvas.SetActive(true);
+                menuEventSystem.SetActive(true);
+                lastMenuPress = Time.time;
+            }
         }
         else
         {
-            if (Time.realtimeSinceStartup > 30)
+            if (Time.time - lastMenuPress > 1.0f && Data_Manager.inMenu)
             {
-                underPlayerControl = true;
-                tran.SetParent(null);
+
+                if (Input.GetAxis("Cancel") > 0)
+                {
+                    menuCanvas.SetActive(false);
+                    menuEventSystem.SetActive(false);
+                    Data_Manager.inMenu = false;
+                    lastMenuPress = Time.time;
+                }
             }
+            if (!Data_Manager.underPlayerControl)
+            {
+                if (Input.GetAxis("Jump") > 0)
+                {
+                    menuCanvas.SetActive(false);
+                    menuEventSystem.SetActive(false);
+                    Data_Manager.underPlayerControl = true;
+                    tran.SetParent(null);
+                }
+            }
+        }
+    }
+
+    public void GiveCoin()
+    {
+        coins++;
+    }
+
+    public int GetCoin()
+    {
+        return coins;
+    }
+
+    public void TakeLife()
+    {
+        lives--;
+        if (lives < 0)
+        {
+            // Game Over
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Main_Menu");
         }
     }
 }

@@ -11,5 +11,9 @@ public class Data_Manager : MonoBehaviour {
     public static int shipType = 1;
     // 0 = super easy, 1 = normal, 2 = hard, 3 = impossibru!!!!
     public static int difficulty = 1;
+    // If the game is under the players control
+    public static bool underPlayerControl = false;
+    // If the player is in the menus.
+    public static bool inMenu = false;
 
 }
