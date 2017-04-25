@@ -14,11 +14,15 @@ public class Ball_Controller : MonoBehaviour {
 
     public GameObject[] playerModels;
 
+	void Awake()
+	{
+		tran = gameObject.GetComponent(typeof(Transform)) as Transform;
+        player = Instantiate(playerModels[Data_Manager.shipType], tran.position, tran.rotation);
+		player.transform.SetParent(tran);
+	}
+
     void Start()
     {
-        tran = gameObject.GetComponent(typeof(Transform)) as Transform;
-        player = Instantiate(playerModels[Data_Manager.shipType], tran.position, tran.rotation);
-        player.transform.SetParent(tran);
         switch (Data_Manager.shipType)
         {
             case 0:

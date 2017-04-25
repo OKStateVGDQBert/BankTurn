@@ -20,9 +20,11 @@ public class Player_Controller : MonoBehaviour {
     private float minY = 5.0f;
     [SerializeField]
     private int forwardSpeed = 1;
+	private HUDScript hud;
 
     void Start () {
         tran = gameObject.GetComponent(typeof(Transform)) as Transform;
+		hud = GameObject.Find("HUD").GetComponent(typeof(HUDScript)) as HUDScript;
 		mainCamera = GameObject.Find ("Main Camera");
         menuPanel = GameObject.Find ("Menu");
         gameOverPanel = GameObject.Find ("GameOver");
@@ -100,11 +102,17 @@ public class Player_Controller : MonoBehaviour {
     public void GiveCoin()
     {
         coins++;
+		hud.coinCollected();
     }
 
     public int GetCoin()
-    {
-        return coins;
+	{
+		return coins;
+    }
+
+    public int GetLives()
+	{
+		return lives;
     }
 
     public void TakeLife()
@@ -114,6 +122,7 @@ public class Player_Controller : MonoBehaviour {
         {
 			GameOver();
         }
+		hud.lifeLost();
     }
 
 	public void GameOver()
