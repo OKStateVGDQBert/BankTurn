@@ -112,8 +112,13 @@ public class Player_Controller : MonoBehaviour {
         lives--;
         if (lives < 0)
         {
-            Data_Manager.gameOver = true;
-            gameOverPanel.SetActive(true);
+			GameOver();
         }
     }
+
+	public void GameOver()
+	{
+		Data_Manager.gameOver = true;
+        gameOverPanel.SetActive(true);
+	}
 }

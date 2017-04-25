@@ -15,8 +15,8 @@ public class Enemy_AI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (player != null && Data_Manager.underPlayerControl && !Data_Manager.inMenu)
-        {
+		if (player != null && Data_Manager.underPlayerControl && !Data_Manager.inMenu && !Data_Manager.gameOver)
+         {
             transform.LookAt(player.transform);
             if (Vector3.Distance(transform.position, player.transform.position) < 60.0f)
             {

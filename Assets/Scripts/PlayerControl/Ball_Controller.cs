@@ -35,6 +35,7 @@ public class Ball_Controller : MonoBehaviour {
 
     void FixedUpdate()
     {
+		if (Data_Manager.gameOver) return;
         Vector3 diff = tran.position - player.transform.position;
 
         Vector3 move = (Vector3.Dot(tran.forward, diff) / tran.forward.sqrMagnitude) * tran.forward;
@@ -92,7 +93,7 @@ public class Ball_Controller : MonoBehaviour {
 
     void ResetCameraPosition()
     {
-		tran.position = player.transform.position + new Vector3(0, player.transform.position.y - 15f);
+		tran.position = player.transform.position - new Vector3(0, player.transform.position.y - 25f);
         tran.rotation = player.transform.rotation;
     }
 
