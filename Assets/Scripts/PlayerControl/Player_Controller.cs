@@ -10,7 +10,7 @@ public class Player_Controller : MonoBehaviour {
     private GameObject gameOverPanel;
     private GameObject startGamePanel;
     private int coins = 0;
-    private int lives = 3;
+    private int lives;
     private float lastMenuPress = 0.0f;
     [SerializeField]
     private int turnSpeed = 1;
@@ -21,6 +21,11 @@ public class Player_Controller : MonoBehaviour {
     [SerializeField]
     private int forwardSpeed = 1;
 	private HUDScript hud;
+
+    private void Awake()
+    {
+        lives = 2 + (2 * Data_Manager.shipType);
+    }
 
     void Start () {
         tran = gameObject.GetComponent(typeof(Transform)) as Transform;

@@ -8,7 +8,7 @@ public class Data_Manager : MonoBehaviour {
     // It also holds static methods as well as global variables.
 
     // 0 = speeder, 1 = cruiser, 2 = tank
-    public static int shipType = 1;
+    public static int shipType = 0;
     // 0 = super easy, 1 = normal, 2 = hard, 3 = impossibru!!!!
     public static int difficulty = 1;
     // If the game is under the players control

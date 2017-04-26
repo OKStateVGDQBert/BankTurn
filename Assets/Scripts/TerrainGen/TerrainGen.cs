@@ -13,9 +13,9 @@ public class TerrainGen : MonoBehaviour {
     public Texture2D FlatTexture;
     public Texture2D SteepTexture;
     public GameObject[] enemies;
-    public float enemyFrequency;
     public GameObject coin;
-    public float coinFrequency;
+    private float enemyFrequency = 0.20f;
+    private float coinFrequency = 0.015f;
 
     private float timesincetrash;
     private bool trashing;
@@ -23,12 +23,17 @@ public class TerrainGen : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (Data_Manager.difficulty > 0)
+        {
+            enemyFrequency = enemyFrequency / Data_Manager.difficulty;
+        }
+        else enemyFrequency = 1.0f;
         remakeMesh();
     }
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+    {
         if (trashing) timesincetrash = timesincetrash + Time.deltaTime;
         if (timesincetrash > 10.0f) remakeMesh();
 	}

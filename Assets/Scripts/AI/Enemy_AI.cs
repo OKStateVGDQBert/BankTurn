@@ -21,9 +21,11 @@ public class Enemy_AI : MonoBehaviour {
             if (Vector3.Distance(transform.position, player.transform.position) < 60.0f)
             {
                 RaycastHit hit;
+#pragma warning disable 0219
                 bool castMid = Physics.Linecast(transform.position, player.transform.position, out hit);
-				// The collider is attached to a gameobject that is a child of the player.
-				if (Data_Manager.IsPlayer(hit.collider))
+#pragma warning restore 0219
+                // The collider is attached to a gameobject that is a child of the player.
+                if (Data_Manager.IsPlayer(hit.collider))
 				{
 					transform.position = Vector3.Lerp (transform.position, player.transform.position, Time.deltaTime * moveSpeed);
 				}
