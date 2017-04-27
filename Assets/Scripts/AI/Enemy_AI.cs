@@ -5,12 +5,14 @@ using UnityEngine;
 public class Enemy_AI : MonoBehaviour {
 
     private GameObject player;
+    private AudioSource crash;
     [SerializeField]
     private int moveSpeed = 1;
 
 	// Use this for initialization
 	void Start () {
         player = GameObject.FindWithTag("Player");
+        crash = (player.GetComponents<AudioSource>())[0];
 	}
 	
 	// Update is called once per frame
@@ -38,7 +40,9 @@ public class Enemy_AI : MonoBehaviour {
             var PC = coll.gameObject.transform.parent.gameObject.GetComponent(typeof(Player_Controller)) as Player_Controller;
             if (PC != null)
             {
+
                 PC.TakeLife();
+                crash.Play();
                 GameObject.Destroy(gameObject);
             }
         }

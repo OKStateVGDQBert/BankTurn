@@ -6,12 +6,14 @@ public class Enemy_Mine : MonoBehaviour
 {
 
 	private GameObject player;
+    private AudioSource crash;
 
-	// Use this for initialization
-	void Start()
+    // Use this for initialization
+    void Start()
 	{
 		player = GameObject.FindWithTag("Player");
-	}
+        crash = (player.GetComponents<AudioSource>())[1];
+    }
 
 	void OnCollisionEnter(Collision coll)
 	{
@@ -21,6 +23,7 @@ public class Enemy_Mine : MonoBehaviour
 			if (PC != null)
 			{
 				PC.GameOver();
+                crash.Play();
 				GameObject.Destroy(gameObject);
 			}
 		}

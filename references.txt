@@ -10,12 +10,8 @@ https://3dwarehouse.sketchup.com/model/a364c0ea-138d-4b2a-9741-0512eaf4f39c/Gray
 "Complete G7 Aerospace Fighter" by lordofdemons, retrieved 4/20/2017 from:
 https://3dwarehouse.sketchup.com/model/eaace0fa078e134476c31a642690c2a8/Complete-G7-Aerospace-Fighter
 
-
-
 "Gun Runner spaceship" by Jordan P., retrieved 4/20/2017 from:
 https://3dwarehouse.sketchup.com/model/e8b5d91e43f95e7f561f37425fe172f/Gun-Runner-spaceship
-
-
 
 "space fighter" by konikolis, retrieved 4/20/2017 from:
 https://3dwarehouse.sketchup.com/model/f9a25385aca8127672c447ef6e5cffc2/space-fighter
@@ -23,15 +19,17 @@ https://3dwarehouse.sketchup.com/model/f9a25385aca8127672c447ef6e5cffc2/space-fi
 "SketchyPhysics Custom Spaceship" by Squigg, retrieved 4/20/2017 from:
 https://3dwarehouse.sketchup.com/model/f1b95ed345858f53f39ed74b7b98885f/SketchyPhysics-Custom-Spaceship
 
-
-
 "Star cruiser / crucero estelar" by Jose Bryan G., retrieved 4/20/2017 from:
 https://3dwarehouse.sketchup.com/model/ubdd54b4b-82a4-44d4-9903-83a56bc9cc7d/Star-cruiser-crucero-estelar
-
-
 
 "T-6 warbird" by dylan hunt, retrieved 4/20/2017 from:
 https://3dwarehouse.sketchup.com/model/53fff9ae454517ae1cf9ee4539ae9b34/T-6-warbird
 
 "Spikey Ball" by Joel, retrieved 4/27/17 from:
 https://3dwarehouse.sketchup.com/model/e782addcaa0faa24d10aad48049bac14/spike-ball
+
+"Crash" and "Explosion" by SoundBible, retrieved 4/27/17 from:
+http://soundbible.com/1467-Grenade-Explosion.html
+
+"Laser"" by SoundBible, retrieved 4/27/17 from:
+http://soundbible.com/1087-Laser.html

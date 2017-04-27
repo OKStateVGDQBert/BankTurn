@@ -22,6 +22,8 @@ public class Player_Controller : MonoBehaviour {
     private float minY = 5.0f;
     [SerializeField]
     private int forwardSpeed = 1;
+    [SerializeField]
+    private AudioSource shootSound;
 
     private void Awake()
     {
@@ -128,6 +130,7 @@ public class Player_Controller : MonoBehaviour {
         {
             GameObject.Destroy(enemy.gameObject);
         }
+        shootSound.Play();
         lastBullet = Time.time;
     }
 
