@@ -7,11 +7,13 @@ using UnityEngine.SceneManagement;
 public class button_functions : MonoBehaviour {
 
     [SerializeField]
-    GameObject StartPanel;
+    private GameObject StartPanel;
     [SerializeField]
-    GameObject ChoosePanel;
+    private GameObject ChoosePanel;
     [SerializeField]
-    GameObject LoadGamePanel;
+    private GameObject LoadGamePanel;
+    [SerializeField]
+    private GameObject CreditsPanel;
 
     public void StartButtonFunc()
     {
@@ -74,6 +76,16 @@ public class button_functions : MonoBehaviour {
     public void ShipSelectorFunc()
     {
         Data_Manager.shipType = (gameObject.GetComponent(typeof(Dropdown)) as Dropdown).value;
+    }
+
+    public void CreditsButtonFunc()
+    {
+        CreditsPanel.SetActive(true);
+    }
+
+    public void BackFromCreditsFunc()
+    {
+        CreditsPanel.SetActive(false);
     }
 
 }
