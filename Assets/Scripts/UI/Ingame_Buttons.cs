@@ -34,4 +34,9 @@ public class Ingame_Buttons : MonoBehaviour {
 	{
 		AudioListener.volume = (gameObject.GetComponent(typeof(Slider)) as Slider).value;
 	}
+
+    public void ToggleInversion()
+    {
+        Data_Manager.inverted = !Data_Manager.inverted;
+    }
 }

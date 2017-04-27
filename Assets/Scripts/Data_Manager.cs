@@ -17,7 +17,11 @@ public class Data_Manager : MonoBehaviour {
     public static bool inMenu = false;
     // If the player has died/reached the end.
     public static bool gameOver = false;
+    // If the y axis is inverted
+    public static bool inverted = false;
 
+    // Determines if the collider coll is the Player's collider.
+    // We need this because the collider is a child of the Player rather than on the Player.
     public static bool IsPlayer(Collider coll)
     {
         // If our Collider is on a GameObject that has a parent.

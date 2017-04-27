@@ -51,18 +51,22 @@ public class Player_Controller : MonoBehaviour {
 
             Vector3 yComp = Vector3.zero;
 
-            if (Input.GetAxis("Vertical") > 0)
+            var inputY = Input.GetAxis("Vertical");
+
+            if (Data_Manager.inverted) inputY *= -1.0f;
+
+            if (inputY > 0)
             {
                 if (tran.position.y < maxY)
                 {
-                    yComp = new Vector3(0, Input.GetAxis("Vertical") * forwardSpeed * Time.fixedDeltaTime);
+                    yComp = new Vector3(0, inputY * forwardSpeed * Time.fixedDeltaTime);
                 }
             }
             else
             {
                 if (tran.position.y > minY)
                 {
-                    yComp = new Vector3(0, Input.GetAxis("Vertical") * forwardSpeed * Time.fixedDeltaTime);
+                    yComp = new Vector3(0, inputY * forwardSpeed * Time.fixedDeltaTime);
                 }
             }
             tran.position = tran.position + yComp;
