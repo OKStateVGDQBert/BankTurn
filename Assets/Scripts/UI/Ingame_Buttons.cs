@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Ingame_Buttons : MonoBehaviour {
 
@@ -28,4 +29,9 @@ public class Ingame_Buttons : MonoBehaviour {
     {
         QuitPanel.SetActive(false);
     }
+
+	public void VolumeBarChanged()
+	{
+		AudioListener.volume = (gameObject.GetComponent(typeof(Slider)) as Slider).value;
+	}
 }
