@@ -108,7 +108,8 @@ public class TerrainChunk {
         // Store the last zero derivative x value outside the loop to preserve scope.
         float lastZeroDeriv = 0.0f;
 
-        // Y values in world coordinates for camera spline.
+        // Reset the dictionary that holds the y values
+        Data_Manager.ys = new Dictionary<float, float>();
         
         for (int xRes = 1; xRes < HeightMapResolution; xRes++)
         {

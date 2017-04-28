@@ -14,7 +14,7 @@ public class TerrainGen : MonoBehaviour {
     public Texture2D SteepTexture;
     public GameObject[] enemies;
     public GameObject coin;
-    private float enemyFrequency = 0.20f;
+    private float enemyFrequency = 0.10f;
     private float coinFrequency = 0.015f;
 
     private float timesincetrash;
