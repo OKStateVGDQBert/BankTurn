@@ -107,11 +107,13 @@ public class TerrainChunk {
 
         // Store the last zero derivative x value outside the loop to preserve scope.
         float lastZeroDeriv = 0.0f;
+
+        // Y values in world coordinates for camera spline.
         
         for (int xRes = 1; xRes < HeightMapResolution; xRes++)
         {
             int zRes = NoiseProvider.GetValue(xRes);
-            
+
             // If we get a z value that is out of bounds, send an empty float to signal trash map.
             if (zRes < 0 || zRes > HeightMapResolution - 1)
             {
@@ -122,8 +124,11 @@ public class TerrainChunk {
                 continue;
             }
 
+            // Add the x and y coordinate in world coordinates to the camera spline
+            Data_Manager.ys.Add((float)xRes / (float)HeightMapResolution * (float)Length, (float)zRes / (float)HeightMapResolution * (float)Length);
+
             // Get the z value for x-1 and store it for distance work.
-			var lastzRes = NoiseProvider.GetValue (xRes - 1);
+            var lastzRes = NoiseProvider.GetValue (xRes - 1);
 
             // Find derivative
             var zResDeriv = NoiseProvider.GetDerivative(xRes);

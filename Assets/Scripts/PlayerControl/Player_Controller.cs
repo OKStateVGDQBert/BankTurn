@@ -5,7 +5,6 @@ using UnityEngine;
 public class Player_Controller : MonoBehaviour {
 
     private Transform tran;
-    private GameObject mainCamera;
     private GameObject menuPanel;
     private GameObject gameOverPanel;
     private GameObject startGamePanel;
@@ -15,13 +14,11 @@ public class Player_Controller : MonoBehaviour {
     private float lastMenuPress = 0.0f;
     private float lastBullet = 0.0f;
     [SerializeField]
-    private int turnSpeed = 1;
-    [SerializeField]
     private float maxY = 5.0f;
     [SerializeField]
     private float minY = 5.0f;
     [SerializeField]
-    private int forwardSpeed = 1;
+    private int moveSpeed = 1;
     [SerializeField]
     private AudioSource shootSound;
 
@@ -33,7 +30,6 @@ public class Player_Controller : MonoBehaviour {
     void Start() {
         tran = gameObject.GetComponent(typeof(Transform)) as Transform;
         hud = GameObject.Find("HUD").GetComponent(typeof(HUDScript)) as HUDScript;
-        mainCamera = GameObject.Find("Main Camera");
         menuPanel = GameObject.Find("Menu");
         gameOverPanel = GameObject.Find("GameOver");
         startGamePanel = GameObject.Find("StartGame");
@@ -45,41 +41,37 @@ public class Player_Controller : MonoBehaviour {
     {
         if (Data_Manager.underPlayerControl && !Data_Manager.inMenu && !Data_Manager.gameOver)
         {
-            // Rotate the ship
-            tran.RotateAround(tran.position, tran.up, turnSpeed * Input.GetAxis("Horizontal") * Time.fixedDeltaTime);
-
-            // Now move the ship in the direction of the current rotation.
-            tran.position = tran.position + tran.forward * forwardSpeed * Time.fixedDeltaTime;
-
             Vector3 yComp = Vector3.zero;
 
             var inputY = Input.GetAxis("Vertical");
 
             if (Data_Manager.inverted) inputY *= -1.0f;
 
+            tran.eulerAngles = tran.parent.eulerAngles + new Vector3(inputY * -30, Input.GetAxis("Horizontal") * 30, 0);
+
             if (inputY > 0)
             {
                 if (tran.position.y < maxY)
                 {
-                    yComp = new Vector3(0, inputY * forwardSpeed * Time.fixedDeltaTime);
+                    yComp = new Vector3(0, inputY * moveSpeed * Time.fixedDeltaTime);
                 }
             }
             else
             {
                 if (tran.position.y > minY)
                 {
-                    yComp = new Vector3(0, inputY * forwardSpeed * Time.fixedDeltaTime);
+                    yComp = new Vector3(0, inputY * moveSpeed * Time.fixedDeltaTime);
                 }
             }
-            tran.position = tran.position + yComp;
-            mainCamera.transform.position = mainCamera.transform.position + yComp;
+
+            tran.position = tran.position + yComp + (tran.parent.right * Input.GetAxis("Horizontal") * Time.fixedDeltaTime * moveSpeed);
             if (Time.time - lastMenuPress > 1.0f && Input.GetAxis("Cancel") > 0)
             {
                 Data_Manager.inMenu = true;
                 menuPanel.SetActive(true);
                 lastMenuPress = Time.time;
             }
-            if (Input.GetAxis("Jump") > 0.0f && Time.time - lastBullet > 1.0f)
+            if (Input.GetAxis("Jump") > 0.0f && Time.time - lastBullet > 0.5f)
             {
                 Shoot();
             }
@@ -102,7 +94,6 @@ public class Player_Controller : MonoBehaviour {
                 {
                     (startGamePanel.GetComponent(typeof(Panel_Fade)) as Panel_Fade).StartFade();
                     Data_Manager.underPlayerControl = true;
-                    tran.SetParent(null);
                 }
             }
             if (Data_Manager.gameOver)
@@ -118,8 +109,12 @@ public class Player_Controller : MonoBehaviour {
     private void Shoot()
     {
         RaycastHit hit;
-        bool cast = Physics.Linecast(tran.position + tran.forward * 5, tran.position + tran.forward * 50, out hit);
-        DrawLine(tran.position + tran.forward * 5, tran.position + tran.forward * 50, new Color(200f/255f, 50f/255f, 50f/255f), 0.5f);
+        Vector3 shootPos = Input.mousePosition;
+        shootPos.z = 30.0f;
+        shootPos = Camera.main.ScreenToWorldPoint(shootPos);
+        bool cast = Physics.Linecast(tran.position + tran.forward * 5, shootPos, out hit);
+        DrawLine(tran.position + tran.forward * 5, shootPos, new Color(200f/255f, 50f/255f, 50f/255f), 0.4f);
+        shootSound.Play();
         if (!cast || hit.collider == null || hit.collider.GetType() == typeof(TerrainCollider))
         {
             lastBullet = Time.time;
@@ -130,7 +125,6 @@ public class Player_Controller : MonoBehaviour {
         {
             GameObject.Destroy(enemy.gameObject);
         }
-        shootSound.Play();
         lastBullet = Time.time;
     }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // This camera control FAR from perfect, but frankly I don't have much time/manpower to fix it.
@@ -8,9 +9,12 @@ public class Ball_Controller : MonoBehaviour {
     
     private Transform tran;
     private GameObject player;
-    private int cameraTurnSpeed = 1;
-    private bool castedLeft = false;
-    private bool castedRight = false;
+    private float[] splines;
+    private int curIndexOfSpline = 0;
+    private int lastIndexOfSpline = 0;
+    private float curInterp = 0.0f;
+    private Vector3 lookAtAvg;
+    private int forwardSpeed = 10;
 
     public GameObject[] playerModels;
 
@@ -26,65 +30,67 @@ public class Ball_Controller : MonoBehaviour {
         switch (Data_Manager.shipType)
         {
             case 0:
-                cameraTurnSpeed = 5;
+                forwardSpeed = 25;
                 break;
             case 1:
-                cameraTurnSpeed = 4;
+                forwardSpeed = 18;
                 break;
             default:
-                cameraTurnSpeed = 3;
+                forwardSpeed = 12;
                 break;
         }
+
+
     }
 
     void FixedUpdate()
     {
-		if (Data_Manager.gameOver) return;
-        Vector3 diff = tran.position - player.transform.position;
-
-        Vector3 move = (Vector3.Dot(tran.forward, diff) / tran.forward.sqrMagnitude) * tran.forward;
-
-        tran.position = tran.position - move;
-
-        //Debug.DrawLine(tran.position, tran.position + tran.forward*10);
-
-        bool castLeft  = Physics.Raycast(tran.position, tran.forward - tran.right, 25, 1 << 8);
-        bool castMid   = Physics.Raycast(tran.position, tran.forward             , 50, 1 << 8);
-        bool castRight = Physics.Raycast(tran.position, tran.forward + tran.right, 25, 1 << 8);
-
-        if (castLeft && castMid && castRight)
+        if (splines == null)
         {
-            ResetCameraPosition();
-            //Debug.Log("OH GOD A WALL!");
+            var tempList = Data_Manager.ys.Keys.ToList();
+            tempList.Sort();
+            splines = tempList.ToArray();
+            var x = tran.position.x;
+            for (curIndexOfSpline = 0; curIndexOfSpline < splines.Length; curIndexOfSpline++)
+            {
+                lastIndexOfSpline++;
+                if (x > splines[curIndexOfSpline]) break;
+            }
         }
-        else if (castLeft && castMid)
+        if (Data_Manager.gameOver || !Data_Manager.underPlayerControl || Data_Manager.inMenu) return;
+        if (lastIndexOfSpline != curIndexOfSpline)
         {
-            Quaternion newRot = Quaternion.Euler(0, 45, 0);
-            tran.rotation = Quaternion.Lerp(tran.rotation, tran.rotation * newRot, Time.fixedDeltaTime * cameraTurnSpeed / 2.0f);
-            //tran.Rotate(new Vector3(0, cameraTurnSpeed * Time.fixedDeltaTime * 5));
+            lookAtAvg = Vector3.zero;
+            for (int i = 0; i < 7; i++)
+            {
+                if (curIndexOfSpline + i < splines.Length)
+                {
+                    float yVal;
+                    Data_Manager.ys.TryGetValue(splines[curIndexOfSpline + i], out yVal);
+                    Vector3 lookAt = new Vector3(splines[curIndexOfSpline + i], 25, yVal);
+                    lookAtAvg = lookAtAvg + lookAt;
+                } else
+                {
+                    lookAtAvg = lookAtAvg / (i + 1);
+                    break;
+                }
+                if (i == 6)
+                {
+                    lookAtAvg = lookAtAvg / (i + 1);
+                    break;
+                }
+            }
+            lastIndexOfSpline = curIndexOfSpline;
+            curInterp = 0.0f;
         }
-        else if (castRight && castMid)
+        curInterp = Mathf.Min(curInterp + Time.fixedDeltaTime * (forwardSpeed / 10.0f), 1.0f);
+        tran.rotation = Quaternion.Lerp(tran.rotation, Quaternion.LookRotation(lookAtAvg - tran.position), curInterp);
+        
+        tran.position = tran.position + tran.forward * Time.fixedDeltaTime * forwardSpeed;
+        while (tran.position.x > splines[curIndexOfSpline])
         {
-            Quaternion newRot = Quaternion.Euler(0, -45, 0);
-            tran.rotation = Quaternion.Lerp(tran.rotation, tran.rotation * newRot, Time.fixedDeltaTime * cameraTurnSpeed / 2.0f);
-            //tran.Rotate(new Vector3(0, -cameraTurnSpeed * Time.fixedDeltaTime * 5));
+            curIndexOfSpline++;
         }
-        else if (castLeft && castedLeft)
-        {
-            Quaternion newRot = Quaternion.Euler(0, 45, 0);
-            tran.rotation = Quaternion.Lerp(tran.rotation, tran.rotation * newRot, Time.fixedDeltaTime * cameraTurnSpeed / 4.0f);
-            //tran.Rotate(new Vector3(0, cameraTurnSpeed * Time.fixedDeltaTime));
-        }
-        else if (castRight && castedRight)
-        {
-            Quaternion newRot = Quaternion.Euler(0, -45, 0);
-            tran.rotation = Quaternion.Lerp(tran.rotation, tran.rotation * newRot, Time.fixedDeltaTime * cameraTurnSpeed / 4.0f);
-            //tran.Rotate(new Vector3(0, -cameraTurnSpeed * Time.fixedDeltaTime));
-        }
-
-        castedLeft = castLeft;
-        castedRight = castRight;
-
     }
 
     void OnTriggerEnter(Collider coll)

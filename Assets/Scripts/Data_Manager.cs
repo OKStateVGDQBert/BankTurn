@@ -19,6 +19,8 @@ public class Data_Manager : MonoBehaviour {
     public static bool gameOver = false;
     // If the y axis is inverted
     public static bool inverted = false;
+    // The Y values of the terrain for camera spline.
+    public static Dictionary<float, float> ys = new Dictionary<float, float>();
 
     // Determines if the collider coll is the Player's collider.
     // We need this because the collider is a child of the Player rather than on the Player.
