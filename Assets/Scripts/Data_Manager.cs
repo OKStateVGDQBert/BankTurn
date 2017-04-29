@@ -19,6 +19,8 @@ public class Data_Manager : MonoBehaviour {
     public static bool gameOver = false;
     // If the y axis is inverted
     public static bool inverted = false;
+    // If the player has toggled the custom cursor
+    public static bool xboxCursor = false;
     // The Y values of the terrain for camera spline.
     public static Dictionary<float, float> ys = new Dictionary<float, float>();
 

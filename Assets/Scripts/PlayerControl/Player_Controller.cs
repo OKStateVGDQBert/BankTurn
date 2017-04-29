@@ -8,6 +8,8 @@ public class Player_Controller : MonoBehaviour {
     private GameObject menuPanel;
     private GameObject gameOverPanel;
     private GameObject startGamePanel;
+    private RectTransform mainCanvas;
+    private RectTransform CursorLoc;
     private HUDScript hud;
     private int coins = 0;
     private int lives;
@@ -29,12 +31,14 @@ public class Player_Controller : MonoBehaviour {
 
     void Start() {
         tran = gameObject.GetComponent(typeof(Transform)) as Transform;
+        mainCanvas = GameObject.Find("Menu_Canvas").GetComponent(typeof(RectTransform)) as RectTransform;
         hud = GameObject.Find("HUD").GetComponent(typeof(HUDScript)) as HUDScript;
         menuPanel = GameObject.Find("Menu");
         gameOverPanel = GameObject.Find("GameOver");
         startGamePanel = GameObject.Find("StartGame");
         menuPanel.SetActive(false);
         gameOverPanel.SetActive(false);
+        CursorLoc = GameObject.Find("Cursor").GetComponent(typeof(RectTransform)) as RectTransform;
     }
 
     void FixedUpdate()
@@ -110,6 +114,16 @@ public class Player_Controller : MonoBehaviour {
     {
         RaycastHit hit;
         Vector3 shootPos = Input.mousePosition;
+        if (Data_Manager.xboxCursor)
+        {
+            shootPos = CursorLoc.anchoredPosition;
+            shootPos.x += mainCanvas.sizeDelta.x * 0.5f;
+            shootPos.y += mainCanvas.sizeDelta.y * 0.5f;
+            shootPos.x /= mainCanvas.sizeDelta.x;
+            shootPos.y /= mainCanvas.sizeDelta.y;
+            shootPos = Camera.main.ViewportToScreenPoint(shootPos);
+
+        }
         shootPos.z = 30.0f;
         shootPos = Camera.main.ScreenToWorldPoint(shootPos);
         bool cast = Physics.Linecast(tran.position + tran.forward * 5, shootPos, out hit);

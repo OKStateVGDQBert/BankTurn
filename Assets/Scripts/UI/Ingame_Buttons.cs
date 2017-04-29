@@ -33,10 +33,15 @@ public class Ingame_Buttons : MonoBehaviour {
 	public void VolumeBarChanged()
 	{
 		AudioListener.volume = (gameObject.GetComponent(typeof(Slider)) as Slider).value;
-	}
+    }
 
     public void ToggleInversion()
     {
         Data_Manager.inverted = !Data_Manager.inverted;
+    }
+
+    public void ToggleXBoxCursor()
+    {
+        Data_Manager.xboxCursor = !Data_Manager.xboxCursor;
     }
 }
