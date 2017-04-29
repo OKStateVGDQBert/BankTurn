@@ -6,6 +6,7 @@ public class Player_Death : MonoBehaviour {
 
 	void OnCollisionEnter(Collision coll)
     {
+        // If this script collides with the terrain, game over.
 		//Debug.Log("U Ded!");
 		if (coll.gameObject.layer == 8)
 		{

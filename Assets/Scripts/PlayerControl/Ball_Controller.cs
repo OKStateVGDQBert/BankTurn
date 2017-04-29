@@ -3,30 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// This camera control FAR from perfect, but frankly I don't have much time/manpower to fix it.
-
 public class Ball_Controller : MonoBehaviour {
     
+    // Our transform
     private Transform tran;
+    // Reference to the player
     private GameObject player;
+    // The splines to move the camera between. These are the Key's from the ys dictionary in Data_Manager
     private float[] splines;
+    // The indeces that we're working with
     private int curIndexOfSpline = 0;
     private int lastIndexOfSpline = 0;
     private float curInterp = 0.0f;
     private Vector3 lookAtAvg;
+    // Movement multiplier
     private int forwardSpeed = 10;
 
+    // The available player characters
     public GameObject[] playerModels;
 
+    // Create the player before Start so that other classes can access and find the player.
 	void Awake()
 	{
+        // Store our transform
 		tran = gameObject.GetComponent(typeof(Transform)) as Transform;
+        // Create our player
         player = Instantiate(playerModels[Data_Manager.shipType], tran.position, tran.rotation);
 		player.transform.SetParent(tran);
 	}
 
     void Start()
     {
+        // Change the movement speed based on the ship type.
         switch (Data_Manager.shipType)
         {
             case 0:
@@ -45,6 +53,7 @@ public class Ball_Controller : MonoBehaviour {
 
     void FixedUpdate()
     {
+        // If splines is null, grab the splines from the dictionary.
         if (splines == null)
         {
             var tempList = Data_Manager.ys.Keys.ToList();
@@ -57,7 +66,9 @@ public class Ball_Controller : MonoBehaviour {
                 if (x > splines[curIndexOfSpline]) break;
             }
         }
+        // If we aren't playing, ignore.
         if (Data_Manager.gameOver || !Data_Manager.underPlayerControl || Data_Manager.inMenu) return;
+        // This whole section works with the spline. Makes the camera face the average of the splines ahead of it.
         if (lastIndexOfSpline != curIndexOfSpline)
         {
             lookAtAvg = Vector3.zero;
@@ -91,20 +102,6 @@ public class Ball_Controller : MonoBehaviour {
         {
             curIndexOfSpline++;
         }
-    }
-
-    void OnTriggerEnter(Collider coll)
-    {
-        if (coll.gameObject.layer == 8)
-        {
-            ResetCameraPosition();
-        }
-    }
-
-    void ResetCameraPosition()
-    {
-		tran.position = player.transform.position - new Vector3(0, player.transform.position.y - 25f);
-        tran.rotation = player.transform.rotation;
     }
 
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TerrainGen : MonoBehaviour {
-
+    // All of the variables for the terrinChunk
     public int resolution;
     public int cuts;
     public int size;
@@ -20,9 +20,9 @@ public class TerrainGen : MonoBehaviour {
     private float timesincetrash;
     private bool trashing;
     private TerrainChunk terrain;
-
-	// Use this for initialization
+    
 	void Start () {
+        // Change the spawn rate based on the difficulty.
         if (Data_Manager.difficulty > 0)
         {
             enemyFrequency = enemyFrequency / Data_Manager.difficulty;
@@ -31,7 +31,6 @@ public class TerrainGen : MonoBehaviour {
         remakeMesh();
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
         if (trashing) timesincetrash = timesincetrash + Time.deltaTime;
